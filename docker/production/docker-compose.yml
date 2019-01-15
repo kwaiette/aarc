@@ -1,11 +1,24 @@
 version: '3'
 services:
     auth:
-        build: .
+        build:
+            context: .
+            dockerfile: Dockerfile
         ports:
             - "2345:8888"
         links:
             - auth_database
+            - auth_fe
+        environment:
+            - DATABASE=mongodb://auth_database:27017/auth
+    auth_fe:
+        build:
+            context: .
+            dockerfile: Dockerfile-frontend
+        ports:
+            - "80:80"
+        links:
+            - auth
         environment:
             - DATABASE=mongodb://auth_database:27017/auth
     auth_database:

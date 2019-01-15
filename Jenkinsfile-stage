@@ -11,9 +11,15 @@ pipeline {
         LANG='en_US.UTF-8'
     }
     stages {
-        stage('Build') {
+        stage('Build Backend') {
             steps {
-                sh "cd src/client && npm i"
+                sh "cd backend && npm i"
+                sh 'sleep 10s'
+            }
+        }
+        stage('Build Frontend') {
+            steps {
+                sh "cd frontend && npm i"
                 sh 'sleep 10s'
             }
         }
@@ -27,8 +33,12 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying... '
-                sh "cd src/aarc && tar -czf aarc.tar.gz --files-from includesfile && mv aarc.tar.gz ../.."
-                sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem aarc.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc"
+		echo 'Packaging backend... '
+                sh "cd backend && tar -czf backend.tar.gz --files-from includesfile-be && mv backend.tar.gz .."
+                sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem backend.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/docker/production/"
+		echo 'Packaging frontend... '
+                sh "cd frontend && tar -czf frontend.tar.gz --files-from includesfile-fe && mv frontend.tar.gz .."
+                sh "scp -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem frontend.tar.gz ec2-user@stage.developerlevel.com:/home/ec2-user/src/aarc/docker/production/"
                 sh "ssh -o StrictHostKeyChecking=no -i /home/.ssh/rigel-alpha.pem ec2-user@stage.developerlevel.com /home/ec2-user/src/aarc/docker-build.sh"
             }
         }

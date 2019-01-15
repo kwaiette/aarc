@@ -1,0 +1,14 @@
+./frontend/package.json
+./frontend/package-lock.json
+./frontend/public/favicon.ico
+./frontend/public/index.html
+./frontend/public/manifest.json
+./frontend/public/images/DevLevelLogoAndWordsWhite.5.25.png
+./frontend/src/App.js
+./frontend/src/index.js
+./frontend/src/components/Login.js
+./frontend/src/components/Register.js
+./frontend/src/components/Reset.js
+./frontend/src/components/Forgot.js
+./frontend/src/serviceWorker.js
+./frontend/src/App.test.js

@@ -1,0 +1,13 @@
+./backend/package.json
+./backend/package-lock.json
+./backend/app.js
+./backend/controllers/authController.js
+./backend/controllers/userController.js
+./backend/controllers/indexController.js
+./backend/globals.js
+./backend/start.js
+./backend/util/jwt_module.js
+./backend/util/array_flatten.js
+./backend/models/User.js
+./backend/handlers/errorHandlers.js
+./backend/handlers/mail.js
